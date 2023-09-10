@@ -21,11 +21,8 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: [
-      "https://jknorthstar.com",
-      "https://www.jknorthstar.com",
+      "https://titanic-frontend-two.vercel.app",
       "http://localhost:3000",
-      "https://nsjk.netlify.app",
-      "https://north-star-frontend.vercel.app",
     ],
     credentials: true,
   })
