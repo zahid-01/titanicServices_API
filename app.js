@@ -22,6 +22,8 @@ app.use(
   cors({
     origin: [
       "https://titanic-frontend-two.vercel.app",
+      "https://www.titanicservices.in",
+      "https://titanicservices.in",
       "http://localhost:3000",
     ],
     credentials: true,

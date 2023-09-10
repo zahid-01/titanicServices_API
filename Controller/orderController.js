@@ -49,7 +49,7 @@ exports.getCheckoutSession = catchAsync(async (req, res) => {
     merchantTransactionId: "MT7850590068188104",
     merchantUserId: userId.toString(),
     amount: productPrice * 100,
-    redirectUrl: "https://jknorthstar.com/myOrders",
+    redirectUrl: "https://titanicservices.in/myOrders",
     // redirectUrl: "http://localhost:5000/orders/uiCallBack",
     redirectMode: "REDIRECT",
     callbackUrl: `https://north-star-zd0a.onrender.com/orders/callBackUrl/${userId.toString()}/${productId.toString()}`,
@@ -89,7 +89,6 @@ exports.getCheckoutSession = catchAsync(async (req, res) => {
 });
 
 exports.callbackUrl = catchAsync(async (req, res, next) => {
-  console.log(req.params);
   const { user, item } = req.params;
 
   const decodedPayload = JSON.parse(atob(req.body.response));
