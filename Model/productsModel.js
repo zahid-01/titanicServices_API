@@ -20,11 +20,9 @@ const ProductsSchema = mongoose.Schema({
   },
   productCategory: {
     type: String,
-    enum: ["keyboards", "monitors", "all-in-one", "printers", "laptops"],
   },
   productBrand: {
     type: String,
-    enum: ["hp", "dell", "epson", "canon"],
   },
   images: {
     type: [String],
