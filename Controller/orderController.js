@@ -45,7 +45,7 @@ exports.getCheckoutSession = catchAsync(async (req, res) => {
   const { phone, _id: userId } = req.user;
 
   const payOptions = {
-    merchantId: "MERCHANTUAT",
+    merchantId: "PGTESTPAYUAT",
     merchantTransactionId: "MT7850590068188104",
     merchantUserId: userId.toString(),
     amount: productPrice * 100,
@@ -70,7 +70,7 @@ exports.getCheckoutSession = catchAsync(async (req, res) => {
 
   const phonePeRes = await axios({
     method: "POST",
-    url: " https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay",
+    url: "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay",
     data: { request: encodedPayload },
     headers: {
       "X-VERIFY": checksumHeader,
