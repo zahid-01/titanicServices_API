@@ -44,10 +44,6 @@ exports.getCheckoutSession = catchAsync(async (req, res) => {
   );
   const { phone, _id: userId } = req.user;
 
-  console.log(process.env.PHONEPE_MERCHANT_ID);
-  console.log(process.env.PHONEPE_SALT_KEY);
-  console.log(process.env.PHONEPE_SALT_INDEX);
-
   const payOptions = {
     merchantId: process.env.PHONEPE_MERCHANT_ID,
     merchantTransactionId: "21456",
@@ -73,7 +69,7 @@ exports.getCheckoutSession = catchAsync(async (req, res) => {
 
   const phonePeRes = await axios({
     method: "POST",
-    url: "https://api.phonepe.com/apis/hermes",
+    url: process.env.PHONEPE_PAYMENT_URL,
     data: { request: encodedPayload },
     headers: {
       "X-VERIFY": checksumHeader,
