@@ -44,15 +44,18 @@ exports.getCheckoutSession = catchAsync(async (req, res) => {
   );
   const { phone, _id: userId } = req.user;
 
+  console.log(process.env.PHONEPE_MERCHANT_ID);
+  console.log(process.env.PHONEPE_SALT_KEY);
+  console.log(process.env.PHONEPE_SALT_INDEX);
+
   const payOptions = {
-    merchantId: "PGTESTPAYUAT",
-    merchantTransactionId: "MT7850590068188104",
+    merchantId: process.env.PHONEPE_MERCHANT_ID,
+    merchantTransactionId: "21456",
     merchantUserId: userId.toString(),
     amount: productPrice * 100,
     redirectUrl: "https://titanicservices.in/myOrders",
-    // redirectUrl: "http://localhost:5000/orders/uiCallBack",
     redirectMode: "REDIRECT",
-    callbackUrl: `https://north-star-zd0a.onrender.com/orders/callBackUrl/${userId.toString()}/${productId.toString()}`,
+    callbackUrl: `https://titanic-api.onrender.com/orders/callBackUrl/${userId.toString()}/${productId.toString()}`,
     mobileNumber: phone,
     paymentInstrument: {
       type: "PAY_PAGE",
@@ -70,7 +73,7 @@ exports.getCheckoutSession = catchAsync(async (req, res) => {
 
   const phonePeRes = await axios({
     method: "POST",
-    url: "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay",
+    url: "https://api.phonepe.com/apis/hermes",
     data: { request: encodedPayload },
     headers: {
       "X-VERIFY": checksumHeader,
