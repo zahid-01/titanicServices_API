@@ -45,7 +45,7 @@ exports.getCheckoutSession = catchAsync(async (req, res) => {
   const { phone, _id: userId } = req.user;
 
   const payOptions = {
-    merchantId: process.env.PHONEPE_MERCHANT_ID,
+    merchantId: process.env.PHONEPE_MERCHANT_ID_TEST,
     merchantTransactionId: "21456",
     merchantUserId: userId.toString(),
     amount: productPrice * 100,
@@ -62,14 +62,14 @@ exports.getCheckoutSession = catchAsync(async (req, res) => {
 
   const hash = crypto
     .createHash("SHA-256")
-    .update(encodedPayload + "/pg/v1/pay" + process.env.PHONEPE_SALT_KEY)
+    .update(encodedPayload + "/pg/v1/pay" + process.env.PHONEPE_SALT_KEY_TEST)
     .digest("hex");
 
   const checksumHeader = hash + "###" + process.env.PHONEPE_SALT_INDEX;
 
   const phonePeRes = await axios({
     method: "POST",
-    url: process.env.PHONEPE_PAYMENT_URL,
+    url: process.env.PHONEPE_PAYMENT_URL_TEST,
     data: { request: encodedPayload },
     headers: {
       "X-VERIFY": checksumHeader,
