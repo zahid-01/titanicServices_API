@@ -38,6 +38,21 @@ const userSchema = mongoose.Schema({
     enum: ["ns-admin", "user"],
     default: "user",
   },
+  cart: [
+    {
+      item: { type: mongoose.Schema.ObjectId, ref: "products" },
+      count: {
+        type: Number,
+        required: [true, "Provide a count (Cart item)"],
+        default: 1,
+      },
+    },
+  ],
+});
+
+userSchema.pre(/^find/, function (next) {
+  this.populate({ path: "cart.item" });
+  next();
 });
 
 userSchema.pre("save", async function (next) {

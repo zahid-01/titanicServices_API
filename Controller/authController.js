@@ -12,6 +12,7 @@ const sendAuthResponse = (res, user, message, token = null) => {
     address: user.address,
     role: user.role,
     id: user._id,
+    cart: user.cart,
   };
 
   res.status(200).json({
