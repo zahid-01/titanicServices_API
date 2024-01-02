@@ -46,7 +46,8 @@ exports.getCheckoutSession = catchAsync(async (req, res) => {
 
   const payOptions = {
     merchantId: process.env.PHONEPE_MERCHANT_ID,
-    merchantTransactionId: `${userId}-${new Date().toLocaleDateString()}`,
+    // merchantTransactionId: `${userId}-${new Date().toLocaleDateString()}`,
+    merchantTransactionId: userId,
     merchantUserId: userId.toString(),
     amount: productPrice * 100,
     redirectUrl: "https://titanicservices.in/myOrders",
