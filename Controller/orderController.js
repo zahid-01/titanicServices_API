@@ -45,8 +45,8 @@ exports.getCheckoutSession = catchAsync(async (req, res) => {
   const { phone, _id: userId } = req.user;
 
   const payOptions = {
-    merchantId: process.env.PHONEPE_MERCHANT_ID_TEST,
-    merchantTransactionId: "21456",
+    merchantId: process.env.PHONEPE_MERCHANT_ID,
+    merchantTransactionId: `${userId}-${new Date().toLocaleDateString()}`,
     merchantUserId: userId.toString(),
     amount: productPrice * 100,
     redirectUrl: "https://titanicservices.in/myOrders",
@@ -62,14 +62,14 @@ exports.getCheckoutSession = catchAsync(async (req, res) => {
 
   const hash = crypto
     .createHash("SHA-256")
-    .update(encodedPayload + "/pg/v1/pay" + process.env.PHONEPE_SALT_KEY_TEST)
+    .update(encodedPayload + "/pg/v1/pay" + process.env.PHONEPE_SALT_KEY)
     .digest("hex");
 
   const checksumHeader = hash + "###" + process.env.PHONEPE_SALT_INDEX;
 
   const phonePeRes = await axios({
     method: "POST",
-    url: process.env.PHONEPE_PAYMENT_URL_TEST,
+    url: process.env.PHONEPE_PAYMENT_URL,
     data: { request: encodedPayload },
     headers: {
       "X-VERIFY": checksumHeader,
