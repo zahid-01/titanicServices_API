@@ -42,18 +42,18 @@ exports.getCheckoutSession = catchAsync(async (req, res) => {
   const { productPrice, _id: productId } = await Product.findById(
     req.params.id
   );
-  const { phone, _id: userId } = req.user;
+  const { phone, _id: userId, email } = req.user;
+  console.log(typeof phone.toString());
 
   const payOptions = {
     merchantId: process.env.PHONEPE_MERCHANT_ID,
-    // merchantTransactionId: `${userId}-${new Date().toLocaleDateString()}`,
-    merchantTransactionId: userId,
+    merchantTransactionId: email,
     merchantUserId: userId.toString(),
     amount: productPrice * 100,
     redirectUrl: "https://titanicservices.in/myOrders",
     redirectMode: "REDIRECT",
     callbackUrl: `https://titanic-api.onrender.com/orders/callBackUrl/${userId.toString()}/${productId.toString()}`,
-    mobileNumber: phone,
+    mobileNumber: phone.toString(),
     paymentInstrument: {
       type: "PAY_PAGE",
     },
