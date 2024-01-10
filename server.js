@@ -7,6 +7,6 @@ mongoose
   .then(() => console.log("DB connection successful"))
   .catch((e) => console.log("DB connection failed"));
 
-app.listen(5000, () => {
+app.listen(process.env.PORT, () => {
   console.log("App running");
 });
